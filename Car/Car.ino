@@ -59,7 +59,7 @@ void setspeed(String speed){
 }
 
 void mvfwd(String length){
-  int len = int(length);
+  int len = toInt(length);
   int lenmv = 0;
   //move forward x length
   while(len != lenmv){
@@ -71,7 +71,7 @@ void mvfwd(String length){
 }
 
 void mvbkwd(String length){
-  int len = int(length);
+  int len = toInt(length);
   int lenmv = 0;
   //move forward x length
   while(len != lenmv){
