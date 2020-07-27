@@ -4,7 +4,9 @@
             "name": "Win32",
             "includePath": [
                 "C:\\Users\\Scott Smith\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\**",
-                "C:\\Users\\Scott Smith\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.3\\**"
+                "C:\\Users\\Scott Smith\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.3\\**",
+                "C:\\Users\\Scott Smith\\Documents\\Arduino\\libraries\\**",
+                "C:\\Program Files (x86)\\Arduino\\libraries\\LiquidCrystal\\src\\**"
             ],
             "forcedInclude": [
                 "C:\\Users\\Scott Smith\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.3\\cores\\arduino\\Arduino.h"

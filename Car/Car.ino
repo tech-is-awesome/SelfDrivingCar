@@ -1,5 +1,5 @@
-#include <Keypad.h>
 #include <HCSR04.h>
+#include <SPI.h>
 #include <LiquidCrystal.h>
 
 #define rs 0
@@ -12,40 +12,32 @@
 #define d5 7
 #define d6 8
 #define d7 9
+#define motor1 18
+#define motor2 19
 
-const byte rows = 4; //four rows
-const byte cols = 4; //three columns
-char keys[rows][cols] = {
-  {'1','2','3','A'},
-  {'4','5','6','B'},
-  {'7','8','9','C'},
-  {'#','0','*','D'}
-};
-byte rowPins[rows] = {10, 11, 12, 13}; //connect to the row pinouts of the keypad
-byte colPins[cols] = {14, 15, 16, 17}; //connect to the column pinouts of the keypad
-Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, rows, cols );
+
 LiquidCrystal lcd(rs, en, d0, d1, d2, d3, d4, d5, d6, d7);
 float currentSpeed;
 int maxSpeed = 100;
-String password = "00000000"
+String password = "00000000";
 String userid = "A111D";
 void setup() {
   // put your setup code here, to run once:
   lcd.begin(16, 2);
   lcd.print("Please enter your userid\n");
-  String input = kpd.read();
-  delay(5000);
+  String input = Serial.read();
+  
   if (input == userid){
     lcd.clear();
     lcd.print("Enter Password:");
-    input = kpd.read();
-    delay(5000);
+    input = Serial.read();
+    
     if (input == password){
       lcd.clear();
       lcd.print("Login Succsessfull\nStarting System");
       // Startup code for Motor, Servo, Accelerometer, RFID and more 
-      pinMode(18, OUTPUT); // Motor pin 1
-      pinMode(19, OUTPUT); // Motor Pin 2     
+      pinMode(motor1, OUTPUT); // Motor pin 1
+      pinMode(motor2, OUTPUT); // Motor Pin 2     
       
     }
     else{
@@ -66,49 +58,64 @@ void setspeed(String speed){
 
 }
 
-void mvfwd(Char[] length){
-  int 
+void mvfwd(String length){
+  int len = int(length);
+  int lenmv = 0;
+  //move forward x length
+  while(len != lenmv){
+    digitalWrite(motor1, HIGH);
+    digitalWrite(motor2, LOW);
+  }
+  digitalWrite(motor1, LOW);
+  digitalWrite(motor2, LOW);
 }
 
+void mvbkwd(String length){
+  int len = int(length);
+  int lenmv = 0;
+  //move forward x length
+  while(len != lenmv){
+    digitalWrite(motor1, LOW);
+    digitalWrite(motor2, HIGH);
+  }
+  digitalWrite(motor1, LOW);
+  digitalWrite(motor2, LOW);
+}
 
 
 void loop() {
   lcg.clear();
   lcd.print("Enter verb ID");
-  input = kpd.read();
-  delay(5000);
+  input = Serial.read();
+  
   if (input = "000"){
     lcd.clear();
     lcd.print("verb received\nenter noun ID");
-    input = kpd.read();
-    delay(5000)
+    input = Serial.read();
     mvfwd(input);
   }
   else if (input == "001"){
     lcd.clear();
     lcd.print("verb received\nenter noun ID");
-    input = kpd.read();
-    delay(5000);
+    input = Serial.read();
     mvbkwd(input);
   }
   else if (input == "002"){
     lcd.clear();
     lcd.print("verb received\nenter noun ID");
-    input = kpd.read();
+    input = Serial.read();
     mvlft(input);
   }
   else if (input == "003"){
     lcd.clear();
     lcd.print("verb received\nenter noun ID");
-    input = kpd.read;
-    delay(5000);
+    input = Serial.Read;
     mvrght(input);
   }
   else if (input == "004"){
     lcd.clear();
     lcd.print("verb received\nenter noun ID")
-    input = kpd.read();
-    delay(5000);
+    input = Serial.read();
     setspeed(input);
   }
 }
