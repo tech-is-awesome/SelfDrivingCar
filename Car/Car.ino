@@ -26,27 +26,87 @@ byte colPins[cols] = {14, 15, 16, 17}; //connect to the column pinouts of the ke
 Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, rows, cols );
 LiquidCrystal lcd(rs, en, d0, d1, d2, d3, d4, d5, d6, d7);
 float currentSpeed;
-String command;
-String passwords = "00000000"
+int maxSpeed = 100;
+String password = "00000000"
 String userid = "A111D";
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
   lcd.begin(16, 2);
   lcd.print("Please enter your userid\n");
   String input = kpd.read();
+  delay(5000);
   if (input == userid){
     lcd.clear();
     lcd.print("Enter Password:");
     input = kpd.read();
+    delay(5000);
     if (input == password){
       lcd.clear();
       lcd.print("Login Succsessfull\nStarting System");
       // Startup code for Motor, Servo, Accelerometer, RFID and more 
+      pinMode(18, OUTPUT); // Motor pin 1
+      pinMode(19, OUTPUT); // Motor Pin 2     
+      
     }
+    else{
+      lcd.clear();
+      lcd.print("Login Failed")
+      while(true);
+    }
+  }
+  else{
+    lcd.clear();
+    lcd.print("Login Failed")
+    while(true);
   }
 }
 
+
+void setspeed(String speed){
+
+}
+
+void mvfwd(String )
+
+
+
 void loop() {
-  lcd.print("Welcome, " + username);
+  lcg.clear();
+  lcd.print("Enter verb ID");
+  input = kpd.read();
+  delay(5000);
+  if (input = "000"){
+    lcd.clear();
+    lcd.print("verb received\nenter noun ID");
+    input = kpd.read();
+    delay(5000)
+    mvfwd(input);
+  }
+  else if (input == "001"){
+    lcd.clear();
+    lcd.print("verb received\nenter noun ID");
+    input = kpd.read();
+    delay(5000);
+    mvbkwd(input);
+  }
+  else if (input == "002"){
+    lcd.clear();
+    lcd.print("verb received\nenter noun ID");
+    input = kpd.read();
+    mvlft(input);
+  }
+  else if (input == "003"){
+    lcd.clear();
+    lcd.print("verb received\nenter noun ID");
+    input = kpd.read;
+    delay(5000);
+    mvrght(input);
+  }
+  else if (input == "004"){
+    lcd.clear();
+    lcd.print("verb received\nenter noun ID")
+    input = kpd.read();
+    delay(5000);
+    setspeed(input);
+  }
 }
