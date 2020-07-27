@@ -66,7 +66,9 @@ void setspeed(String speed){
 
 }
 
-void mvfwd(String )
+void mvfwd(Char[] length){
+  int 
+}
 
 
 
